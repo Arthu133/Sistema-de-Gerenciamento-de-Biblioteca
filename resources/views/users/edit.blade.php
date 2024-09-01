@@ -22,5 +22,12 @@
             </div>
             <button type="submit" class="btn btn-success">Salvar</button>
         </form>
+
+        <!-- Formulário de exclusão -->
+        <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="margin-top: 20px;">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este usuário?')">Excluir Usuário</button>
+        </form>
     </div>
 @endsection
