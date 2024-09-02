@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+
 
 class Book extends Model
 {
@@ -14,11 +16,13 @@ class Book extends Model
         return $this->belongsToMany(Author::class);
     }
     protected static function boot()
-{
+    {
     parent::boot();
 
-    static::creating(function ($model) {
-        $model->unique_identifier = $model->unique_identifier ?? (string) \Illuminate\Support\Str::uuid();
+    static::creating(function ($book) {
+        if (empty($book->unique_identifier)) {
+            $book->unique_identifier = (string) Str::uuid();
+        }
     });
 }
 

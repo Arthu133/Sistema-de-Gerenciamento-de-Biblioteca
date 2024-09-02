@@ -22,14 +22,18 @@ class BookController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([              #       DEPURAR CODIGO (RETIRDAR DD APOS DEPURAÇÃO)
-            'title' => 'required',
-            'publication_year' => 'required',
-            'unique_identifier' => 'required|unique:books',
-            'authors' => 'required|array'
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'publication_year' => 'required|integer',
+            'authors' => 'required|array',
         ]);
 
-        $book = Book::create($request->only(['title', 'publication_year', 'unique_identifier']));
+        $book = new Book();
+        $book->title = $request->title;
+        $book->publication_year = $request->publication_year;
+        // O unique_identifier será gerado automaticamente
+        $book->save();
+
         $book->authors()->attach($request->authors);
 
         return redirect()->route('books.index')
@@ -50,13 +54,12 @@ class BookController extends Controller
     public function update(Request $request, Book $book)
     {
         $request->validate([
-            'title' => 'required',
-            'publication_year' => 'required',
-            'unique_identifier' => 'required|unique:books,unique_identifier,' . $book->id,
-            'authors' => 'required|array'
+            'title' => 'required|string|max:255',
+            'publication_year' => 'required|integer',
+            'authors' => 'required|array',
         ]);
 
-        $book->update($request->only(['title', 'publication_year', 'unique_identifier']));
+        $book->update($request->only(['title', 'publication_year']));
         $book->authors()->sync($request->authors);
 
         return redirect()->route('books.index')

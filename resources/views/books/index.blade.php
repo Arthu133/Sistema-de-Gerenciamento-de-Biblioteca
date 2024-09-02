@@ -26,7 +26,7 @@
                                 {{ $author->name }}@if(!$loop->last), @endif
                             @endforeach
                         </td>
-                        <td>{{ $book->year }}</td>
+                        <td>{{ $book->publication_year }}</td>
                         <td>
                             <a href="{{ route('books.edit', $book->id) }}" class="btn btn-warning">Editar</a>
                             <form action="{{ route('books.destroy', $book->id) }}" method="POST" style="display:inline;">

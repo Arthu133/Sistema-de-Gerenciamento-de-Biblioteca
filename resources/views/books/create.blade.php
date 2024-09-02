@@ -24,10 +24,11 @@
                 <label for="publication_year">Publication Year</label>
                 <input type="number" name="publication_year" id="publication_year" class="form-control" value="{{ old('publication_year') }}" required>
             </div>
-            <div class="form-group">
+            
+            <!-- <div class="form-group">
                 <label for="unique_identifier">Unique Identifier</label>
                 <input type="text" name="unique_identifier" id="unique_identifier" class="form-control" value="{{ old('unique_identifier') }}" required>
-            </div>
+            </div> -->
 
 
             
