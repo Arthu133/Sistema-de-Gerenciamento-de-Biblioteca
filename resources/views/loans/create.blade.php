@@ -24,9 +24,24 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="due_date">Data Prevista de Devolução</label>
-                <input type="date" name="due_date" id="due_date" class="form-control" required>
+                <label for="loan_date">Data Prevista de Empréstimo</label>
+                <input type="date" name="loan_date" id="loan_date" class="form-control" required>
             </div>
+                        <div class="form-group">
+                <label for="due_date">Data de Devolução</label>
+                <input type="date" name="due_date" id="due_date" class="form-control" value="{{ old('due_date') }}" required>
+            </div>
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <button type="submit" class="btn btn-success">Salvar</button>
         </form>
     </div>

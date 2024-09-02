@@ -1,0 +1,614 @@
+openapi: 3.0.0
+info:
+  title: Biblioteca API
+  description: API para gerenciar empréstimos, livros, autores, usuários e mais.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000/api
+    description: Servidor de Desenvolvimento
+
+paths:
+  /loans:
+    get:
+      summary: Listar todos os empréstimos
+      tags:
+        - Loans
+      responses:
+        '200':
+          description: Lista de todos os empréstimos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Loan'
+    post:
+      summary: Criar um novo empréstimo
+      tags:
+        - Loans
+      requestBody:
+        description: Dados do novo empréstimo
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoanCreate'
+      responses:
+        '201':
+          description: Empréstimo criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Loan'
+        '422':
+          description: Erro de validação
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+
+  /loans/{id}:
+    get:
+      summary: Obter detalhes de um empréstimo específico
+      tags:
+        - Loans
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Detalhes do empréstimo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Loan'
+        '404':
+          description: Empréstimo não encontrado
+
+    put:
+      summary: Atualizar um empréstimo existente
+      tags:
+        - Loans
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Dados do empréstimo a ser atualizado
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoanUpdate'
+      responses:
+        '200':
+          description: Empréstimo atualizado com sucesso
+        '404':
+          description: Empréstimo não encontrado
+        '422':
+          description: Erro de validação
+
+    delete:
+      summary: Excluir um empréstimo
+      tags:
+        - Loans
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Empréstimo excluído com sucesso
+        '404':
+          description: Empréstimo não encontrado
+
+  /authors:
+    get:
+      summary: Listar todos os autores
+      tags:
+        - Authors
+      responses:
+        '200':
+          description: Lista de todos os autores
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Author'
+    post:
+      summary: Criar um novo autor
+      tags:
+        - Authors
+      requestBody:
+        description: Dados do novo autor
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthorCreate'
+      responses:
+        '201':
+          description: Autor criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+        '422':
+          description: Erro de validação
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+
+  /authors/{id}:
+    get:
+      summary: Obter detalhes de um autor específico
+      tags:
+        - Authors
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Detalhes do autor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+        '404':
+          description: Autor não encontrado
+
+    put:
+      summary: Atualizar um autor existente
+      tags:
+        - Authors
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Dados do autor a ser atualizado
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthorUpdate'
+      responses:
+        '200':
+          description: Autor atualizado com sucesso
+        '404':
+          description: Autor não encontrado
+        '422':
+          description: Erro de validação
+
+    delete:
+      summary: Excluir um autor
+      tags:
+        - Authors
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Autor excluído com sucesso
+        '404':
+          description: Autor não encontrado
+
+  /books:
+    get:
+      summary: Listar todos os livros
+      tags:
+        - Books
+      responses:
+        '200':
+          description: Lista de todos os livros
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+    post:
+      summary: Criar um novo livro
+      tags:
+        - Books
+      requestBody:
+        description: Dados do novo livro
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookCreate'
+      responses:
+        '201':
+          description: Livro criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '422':
+          description: Erro de validação
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+
+  /books/{id}:
+    get:
+      summary: Obter detalhes de um livro específico
+      tags:
+        - Books
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Detalhes do livro
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '404':
+          description: Livro não encontrado
+
+    put:
+      summary: Atualizar um livro existente
+      tags:
+        - Books
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Dados do livro a ser atualizado
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookUpdate'
+      responses:
+        '200':
+          description: Livro atualizado com sucesso
+        '404':
+          description: Livro não encontrado
+        '422':
+          description: Erro de validação
+
+    delete:
+      summary: Excluir um livro
+      tags:
+        - Books
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Livro excluído com sucesso
+        '404':
+          description: Livro não encontrado
+
+  /users:
+    get:
+      summary: Listar todos os usuários
+      tags:
+        - Users
+      responses:
+        '200':
+          description: Lista de todos os usuários
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      summary: Criar um novo usuário
+      tags:
+        - Users
+      requestBody:
+        description: Dados do novo usuário
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+      responses:
+        '201':
+          description: Usuário criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '422':
+          description: Erro de validação
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+
+  /users/{id}:
+    get:
+      summary: Obter detalhes de um usuário específico
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Detalhes do usuário
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: Usuário não encontrado
+
+    put:
+      summary: Atualizar um usuário existente
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Dados do usuário a ser atualizado
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdate'
+      responses:
+        '200':
+          description: Usuário atualizado com sucesso
+        '404':
+          description: Usuário não encontrado
+        '422':
+          description: Erro de validação
+
+    delete:
+      summary: Excluir um usuário
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Usuário excluído com sucesso
+        '404':
+          description: Usuário não encontrado
+
+components:
+  schemas:
+    Loan:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        book_id:
+          type: integer
+          example: 2
+        user_id:
+          type: integer
+          example: 3
+        loan_date:
+          type: string
+          format: date
+          example: '2024-09-01'
+        due_date:
+          type: string
+          format: date
+          example: '2024-09-15'
+        return_date:
+          type: string
+          format: date
+          example: '2024-09-10'
+
+    LoanCreate:
+      type: object
+      required:
+        - book_id
+        - user_id
+        - loan_date
+        - due_date
+      properties:
+        book_id:
+          type: integer
+          example: 2
+        user_id:
+          type: integer
+          example: 3
+        loan_date:
+          type: string
+          format: date
+          example: '2024-09-01'
+        due_date:
+          type: string
+          format: date
+          example: '2024-09-15'
+
+    LoanUpdate:
+      type: object
+      properties:
+        book_id:
+          type: integer
+          example: 2
+        user_id:
+          type: integer
+          example: 3
+        loan_date:
+          type: string
+          format: date
+          example: '2024-09-01'
+        due_date:
+          type: string
+          format: date
+          example: '2024-09-15'
+        return_date:
+          type: string
+          format: date
+          example: '2024-09-10'
+
+    Author:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: 'John Doe'
+        biography:
+          type: string
+          example: 'Autor renomado com várias obras publicadas.'
+
+    AuthorCreate:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example: 'John Doe'
+        biography:
+          type: string
+          example: 'Autor renomado com várias obras publicadas.'
+
+    AuthorUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          example: 'John Doe'
+        biography:
+          type: string
+          example: 'Autor renomado com várias obras publicadas.'
+
+    Book:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: 'O Senhor dos Anéis'
+        author_id:
+          type: integer
+          example: 1
+        summary:
+          type: string
+          example: 'Uma obra épica de fantasia.'
+
+    BookCreate:
+      type: object
+      required:
+        - title
+        - author_id
+      properties:
+        title:
+          type: string
+          example: 'O Senhor dos Anéis'
+        author_id:
+          type: integer
+          example: 1
+        summary:
+          type: string
+          example: 'Uma obra épica de fantasia.'
+
+    BookUpdate:
+      type: object
+      properties:
+        title:
+          type: string
+          example: 'O Senhor dos Anéis'
+        author_id:
+          type: integer
+          example: 1
+        summary:
+          type: string
+          example: 'Uma obra épica de fantasia.'
+
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: 'Alice'
+        email:
+          type: string
+          example: 'alice@example.com'
+
+    UserCreate:
+      type: object
+      required:
+        - name
+        - email
+      properties:
+        name:
+          type: string
+          example: 'Alice'
+        email:
+          type: string
+          example: 'alice@example.com'
+
+    UserUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          example: 'Alice'
+        email:
+          type: string
+          example: 'alice@example.com'
+
+    ValidationError:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "The given data was invalid."
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
