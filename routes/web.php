@@ -27,6 +27,9 @@ Route::get('/', [HomeController::class, 'index']);
 Route::post('/books', [BookController::class, 'store'])->name('books.store');
 
 
+Route::get('web-test', function () {
+    return 'Web route is working!';
+});
 
 
 
