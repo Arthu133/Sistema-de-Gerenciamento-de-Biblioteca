@@ -19,10 +19,10 @@ class UserController extends Controller
     }
     public function destroy($id)
     {
-    $user = User::findOrFail($id);
-    $user->delete();
+        $user = User::findOrFail($id);
+        $user->delete();
 
-    return redirect()->route('users.index')
+        return redirect()->route('users.index')
                      ->with('success', 'User deleted successfully');
     }
 
@@ -33,7 +33,7 @@ class UserController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:8',
         ]);
-    
+
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
@@ -61,4 +61,3 @@ class UserController extends Controller
         return redirect()->route('users.index'); // Redireciona para a lista de usuários
     }
 }
-
