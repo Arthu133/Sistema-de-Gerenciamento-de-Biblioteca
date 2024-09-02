@@ -13,6 +13,14 @@ class Book extends Model
     {
         return $this->belongsToMany(Author::class);
     }
+    protected static function boot()
+{
+    parent::boot();
+
+    static::creating(function ($model) {
+        $model->unique_identifier = $model->unique_identifier ?? (string) \Illuminate\Support\Str::uuid();
+    });
+}
 
     public function loans()
     {

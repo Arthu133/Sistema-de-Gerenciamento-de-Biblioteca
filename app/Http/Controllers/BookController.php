@@ -22,12 +22,12 @@ class BookController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->validate([              #       DEPURAR CODIGO (RETIRDAR DD APOS DEPURAÇÃO)
+        $request->validate([              #       DEPURAR CODIGO (RETIRDAR DD APOS DEPURAÇÃO)
             'title' => 'required',
             'publication_year' => 'required',
             'unique_identifier' => 'required|unique:books',
             'authors' => 'required|array'
-        ]));
+        ]);
 
         $book = Book::create($request->only(['title', 'publication_year', 'unique_identifier']));
         $book->authors()->attach($request->authors);

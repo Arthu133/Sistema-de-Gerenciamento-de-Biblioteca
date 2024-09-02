@@ -21,7 +21,11 @@
                     <tr>
                         <td>{{ $book->id }}</td>
                         <td>{{ $book->title }}</td>
-                        <td>{{ $book->author->name }}</td>
+                        <td>
+                            @foreach($book->authors as $author)
+                                {{ $author->name }}@if(!$loop->last), @endif
+                            @endforeach
+                        </td>
                         <td>{{ $book->year }}</td>
                         <td>
                             <a href="{{ route('books.edit', $book->id) }}" class="btn btn-warning">Editar</a>

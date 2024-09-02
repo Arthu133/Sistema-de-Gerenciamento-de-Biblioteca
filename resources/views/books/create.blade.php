@@ -12,18 +12,37 @@
                 <input type="text" name="title" id="title" class="form-control" required>
             </div>
             <div class="form-group">
-                <label for="author_id">Autor</label>
-                <select name="author_id" id="author_id" class="form-control" required>
+                <label for="authors">Authors</label>
+                <select name="authors[]" id="authors" class="form-control" multiple required>
                     @foreach($authors as $author)
                         <option value="{{ $author->id }}">{{ $author->name }}</option>
                     @endforeach
                 </select>
             </div>
+
             <div class="form-group">
-                <label for="year">Ano de Publicação</label>
-                <input type="text" name="year" id="year" class="form-control" required>
+                <label for="publication_year">Publication Year</label>
+                <input type="number" name="publication_year" id="publication_year" class="form-control" value="{{ old('publication_year') }}" required>
             </div>
+            <div class="form-group">
+                <label for="unique_identifier">Unique Identifier</label>
+                <input type="text" name="unique_identifier" id="unique_identifier" class="form-control" value="{{ old('unique_identifier') }}" required>
+            </div>
+
+
+            
             <button type="submit" class="btn btn-success">Salvar</button>
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
         </form>
+
     </div>
 @endsection
