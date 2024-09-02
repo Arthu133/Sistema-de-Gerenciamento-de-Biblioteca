@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->year('publication_year');
+            $table->integer('publication_year')->change(); // Altera para INT
             $table->string('unique_identifier')->unique();
             $table->timestamps();
         });
@@ -27,5 +27,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('books');
+        Schema::table('books', function (Blueprint $table) {
+            $table->year('publication_year')->change(); // Reverte para YEAR se necessário
+        });
     }
 };
