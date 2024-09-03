@@ -79,6 +79,14 @@ Se houver seeders configurados, rode-os para popular o banco de dados com dados 
 
 php artisan db:seed
 
+### Gerar a Chave da Aplicação
+Gere uma chave para a aplicação Laravel:
+
+php artisan key:generate
+
+adicione no .env: JWT_SECRET= {sua_chave}
+
+
 ## Execução do Projeto
 
 Para iniciar o servidor de desenvolvimento, execute:
