@@ -40,12 +40,19 @@ Configure as informações do banco de dados:
 
 
 #SQL SERVER
+
 DB_CONNECTION=sqlsrv
+
 DB_HOST=localhost
+
 DB_PORT=1433
+
 DB_DATABASE=nome_DB
+
 DB_USERNAME=nome_usuario
+
 DB_PASSWORD=senha_usuario
+
 
 # Configuração do MySQL para a persitencia dos dados (Utilizar o XAMPP para ter acesso ao PHPMyAdmin)
 DB_CONNECTION=mysql
